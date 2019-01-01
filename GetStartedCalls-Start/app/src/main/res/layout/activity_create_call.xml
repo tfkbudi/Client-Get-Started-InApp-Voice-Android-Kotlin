@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="84dp">
+
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+        tools:text="Hi, Britt!" />
+
+    <Button
+        android:id="@+id/btnCallUser"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvTitle"
+        android:layout_gravity="center"
+        android:layout_margin="16dp"
+        android:background="@drawable/round_blue"
+        android:onClick="onInAppCallClick"
+        android:padding="16dp"
+        style="@style/Base.TextAppearance.AppCompat.Widget.Button.Inverse"
+        android:text=" Call user"
+        android:textColor="@color/white" />
+
+    <TextView
+        android:id="@+id/tvOr"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btnCallUser"
+        android:layout_marginTop="32dp"
+        android:layout_marginBottom="32dp"
+        android:text="or: "
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+
+    <EditText
+        android:id="@+id/etPhoneNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvOr"
+        android:layout_marginEnd="16dp"
+        android:hint="Enter phone number"
+        android:inputType="phone" />
+
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fabCallPhone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/etPhoneNumber"
+        android:layout_toEndOf="@+id/etPhoneNumber"
+        android:onClick="onCallPhoneClick"
+        android:src="@drawable/ic_phone"
+        app:backgroundTint="@color/light_blue"
+        app:fabSize="normal" />
+
+
+</RelativeLayout>
