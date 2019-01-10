@@ -34,7 +34,16 @@ class IncomingCallActivity : BaseActivity() {
     }
 
     fun onHangup(view: View) {
-        NexmoHelper.currentCall!!.hangup()
+        NexmoHelper.currentCall!!.hangup(object : NexmoRequestListener<NexmoCall> {
+            override fun onError(nexmoApiError: NexmoApiError) {
+                notifyError(nexmoApiError)
+            }
+
+            override fun onSuccess(call: NexmoCall) {
+                startActivity(Intent(this@IncomingCallActivity, OnCallActivity::class.java))
+                finish()
+            }
+        })
         finish()
     }
 

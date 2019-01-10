@@ -43,7 +43,7 @@ open class BaseActivity : AppCompatActivity() {
     }
 
     companion object {
-        private val callsPermissions = arrayOf(android.Manifest.permission.READ_PHONE_STATE, android.Manifest.permission.RECORD_AUDIO, android.Manifest.permission.PROCESS_OUTGOING_CALLS, android.Manifest.permission.ACCESS_WIFI_STATE, android.Manifest.permission.CHANGE_WIFI_STATE, android.Manifest.permission.ACCESS_NETWORK_STATE, android.Manifest.permission.MODIFY_AUDIO_SETTINGS)
+        private val callsPermissions = arrayOf(android.Manifest.permission.READ_PHONE_STATE, android.Manifest.permission.RECORD_AUDIO, android.Manifest.permission.PROCESS_OUTGOING_CALLS)
     }
 
     fun notifyError(nexmoApiError: NexmoApiError) {
