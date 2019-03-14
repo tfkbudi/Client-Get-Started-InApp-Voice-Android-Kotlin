@@ -2,7 +2,10 @@ package com.nexmo.client.getstarted.calls
 
 import android.os.Bundle
 import android.view.View
+import com.nexmo.client.NexmoCall
 import com.nexmo.client.NexmoCallEventListener
+import com.nexmo.client.request_listener.NexmoApiError
+import com.nexmo.client.request_listener.NexmoRequestListener
 
 class OnCallActivity : BaseActivity() {
 
@@ -16,17 +19,26 @@ class OnCallActivity : BaseActivity() {
 
     override fun onStart() {
         super.onStart()
-        NexmoHelper.currentCall?.addCallEventListener(callEventListener)
+        currentCall?.addCallEventListener(callEventListener)
     }
 
     fun onHangup(view: View) {
-        NexmoHelper.currentCall!!.hangup()
-        finish()
+        currentCall?.hangup(object : NexmoRequestListener<NexmoCall> {
+            override fun onSuccess(call: NexmoCall?) {
+                finish()
+                currentCall = null
+            }
+
+            override fun onError(nexmoApiError: NexmoApiError) {
+                notifyError(nexmoApiError)
+            }
+
+        })
     }
 
 
     override fun onStop() {
-        NexmoHelper.currentCall?.removeCallEventListener(callEventListener)
+        currentCall?.removeCallEventListener(callEventListener)
         super.onStop()
     }
 

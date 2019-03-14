@@ -11,17 +11,17 @@ import com.nexmo.client.request_listener.NexmoRequestListener
 
 class IncomingCallActivity : BaseActivity() {
 
-    internal var callEventListener: NexmoCallEventListener = FinishOnCallEnd(this)
+    var callEventListener: NexmoCallEventListener = FinishOnCallEnd(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_incoming_call)
 
-        NexmoHelper.currentCall!!.addCallEventListener(callEventListener)
+        currentCall?.addCallEventListener(callEventListener)
     }
 
     fun onAnswer(view: View) {
-        NexmoHelper.currentCall!!.answer(object : NexmoRequestListener<NexmoCall> {
+        currentCall?.answer(object : NexmoRequestListener<NexmoCall> {
             override fun onError(nexmoApiError: NexmoApiError) {
                 notifyError(nexmoApiError)
             }
@@ -34,7 +34,7 @@ class IncomingCallActivity : BaseActivity() {
     }
 
     fun onHangup(view: View) {
-        NexmoHelper.currentCall!!.hangup(object : NexmoRequestListener<NexmoCall> {
+        currentCall?.hangup(object : NexmoRequestListener<NexmoCall> {
             override fun onError(nexmoApiError: NexmoApiError) {
                 notifyError(nexmoApiError)
             }
@@ -48,7 +48,7 @@ class IncomingCallActivity : BaseActivity() {
     }
 
     override fun onDestroy() {
-        NexmoHelper.currentCall!!.removeCallEventListener(callEventListener)
+        currentCall?.removeCallEventListener(callEventListener)
         super.onDestroy()
     }
 }

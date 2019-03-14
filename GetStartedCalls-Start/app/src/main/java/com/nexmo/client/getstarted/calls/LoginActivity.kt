@@ -2,6 +2,7 @@ package com.nexmo.client.getstarted.calls
 
 import android.os.Bundle
 import android.view.View
+import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : BaseActivity() {
 
@@ -9,15 +10,21 @@ class LoginActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        NexmoHelper.init(applicationContext)
+        btnLoginJoe.visibility =
+                if (enabledFeatures.contains(Features.IN_APP_to_IN_APP)) {
+                    View.VISIBLE
+                } else
+                    View.GONE
+
+        init(applicationContext)
     }
 
     fun onLoginJaneClick(view: View) {
-        loginToSdk(NexmoHelper.JWT_JANE)
+        loginToSdk(JWT_JANE)
     }
 
     fun onLoginJoeClick(view: View) {
-        loginToSdk(NexmoHelper.JWT_JOE)
+        loginToSdk(JWT_JOE)
     }
 
     private fun loginToSdk(token: String) {

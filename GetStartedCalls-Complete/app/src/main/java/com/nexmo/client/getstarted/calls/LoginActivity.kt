@@ -8,6 +8,7 @@ import com.nexmo.client.NexmoClient
 import com.nexmo.client.NexmoUser
 import com.nexmo.client.request_listener.NexmoApiError
 import com.nexmo.client.request_listener.NexmoRequestListener
+import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : BaseActivity() {
 
@@ -15,15 +16,21 @@ class LoginActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        NexmoHelper.init(applicationContext)
+        btnLoginJoe.visibility =
+                if (enabledFeatures.contains(Features.IN_APP_to_IN_APP)) {
+                    View.VISIBLE
+                } else
+                    View.GONE
+
+        init(applicationContext)
     }
 
     fun onLoginJaneClick(view: View) {
-        loginToSdk(NexmoHelper.JWT_JANE)
+        loginToSdk(JWT_JANE)
     }
 
     fun onLoginJoeClick(view: View) {
-        loginToSdk(NexmoHelper.JWT_JOE)
+        loginToSdk(JWT_JOE)
     }
 
     private fun loginToSdk(token: String) {
@@ -34,9 +41,9 @@ class LoginActivity : BaseActivity() {
             }
 
             override fun onSuccess(user: NexmoUser) {
-                NexmoHelper.user = user
+                currentUser = user
 
-                val intent = Intent(baseContext, CreateCallActivity::class.java)
+                val intent = Intent(baseContext, MainActivity::class.java)
                 startActivity(intent)
                 finish()
             }

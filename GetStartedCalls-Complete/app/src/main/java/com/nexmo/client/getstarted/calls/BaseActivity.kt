@@ -9,7 +9,7 @@ import android.util.Log
 import android.widget.Toast
 import com.nexmo.client.request_listener.NexmoApiError
 
-open class BaseActivity : AppCompatActivity() {
+abstract class BaseActivity : AppCompatActivity() {
 
     private val CALL_PERMISSIONS_REQ = 121
 
@@ -47,10 +47,8 @@ open class BaseActivity : AppCompatActivity() {
     }
 
     fun notifyError(nexmoApiError: NexmoApiError) {
-        val tag = javaClass.simpleName
-        Log.e(tag, nexmoApiError.message)
-        Toast.makeText(this, tag, Toast.LENGTH_LONG).show()
-
+        Log.e(TAG, nexmoApiError.message)
+        Toast.makeText(this, TAG, Toast.LENGTH_LONG).show()
     }
 }
 
