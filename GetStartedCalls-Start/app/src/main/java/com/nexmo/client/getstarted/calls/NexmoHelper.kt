@@ -4,9 +4,6 @@ import android.content.Context
 import android.util.Log
 import com.nexmo.client.NexmoCall
 import com.nexmo.client.NexmoClient
-import com.nexmo.client.NexmoConnectionState
-import com.nexmo.client.NexmoUser
-import com.nexmo.client.request_listener.NexmoLoginListener
 import java.lang.ref.WeakReference
 
 
@@ -25,27 +22,17 @@ const val JWT_JANE = PLACEHOLDER //TODO: swap with the JWT you generated for Jan
 const val JWT_JOE = PLACEHOLDER //TODO: swap with the JWT you generated for Joe
 
 var currentCall: NexmoCall? = null
-lateinit var contextRef: WeakReference<Context>
 private var didInit: Boolean = false
 
-
-var loginListener: NexmoLoginListener = object : NexmoLoginListener {
-    override fun onLoginStateChange(eLoginState: NexmoLoginListener.ELoginState, eLoginStateReason: NexmoLoginListener.ELoginStateReason) {
-        Log.d(TAG, "NexmoLoginListener.onLoginStateChange : $eLoginState : $eLoginStateReason")
-    }
-
-    override fun onAvailabilityChange(eAvailability: NexmoLoginListener.EAvailability, nexmoConnectionState: NexmoConnectionState) {
-        Log.d(TAG, "NexmoLoginListener.onAvailabilityChange : $eAvailability : $nexmoConnectionState")
-    }
-}
 
 fun init(appContext: Context) {
     if (didInit) {
         return
     }
     didInit = true
-    contextRef = WeakReference(appContext)
-    NexmoClient.init(NexmoClient.NexmoClientConfig(), appContext, loginListener)
+    NexmoClient.Builder()
+            .build(appContext)
+            .setConnectionListener { status, reason -> Log.d(TAG, "NexmoConnectionListener.ConnectionStatus : $status : $reason") }
 }
 
 val userName: String

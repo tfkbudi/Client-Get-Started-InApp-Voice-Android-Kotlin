@@ -21,7 +21,6 @@ class LoginActivity : BaseActivity() {
                     View.VISIBLE
                 } else
                     View.GONE
-
         init(applicationContext)
     }
 
@@ -40,7 +39,7 @@ class LoginActivity : BaseActivity() {
                 notifyError(nexmoApiError)
             }
 
-            override fun onSuccess(user: NexmoUser) {
+            override fun onSuccess(user: NexmoUser?) {
                 currentUser = user
 
                 val intent = Intent(baseContext, MainActivity::class.java)
