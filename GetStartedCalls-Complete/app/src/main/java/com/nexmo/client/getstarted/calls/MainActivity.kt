@@ -27,7 +27,7 @@ class MainActivity : BaseActivity() {
             notifyError(nexmoApiError)
         }
 
-        override fun onSuccess(call: NexmoCall) {
+        override fun onSuccess(call: NexmoCall?) {
             currentCall = call
 
             val intent = Intent(this@MainActivity, OnCallActivity::class.java)
@@ -48,12 +48,11 @@ class MainActivity : BaseActivity() {
     }
 
     fun onInAppCallClick(view: View) {
-        val callee = listOf(otherUserName)
-        NexmoClient.get().call(callee, NexmoCallHandler.IN_APP, callListener)
+        otherUserName?.let { NexmoClient.get().call(it, NexmoCallHandler.IN_APP, callListener) }
     }
 
     fun onPhoneCallClick(view: View) {
-        val callee = listOf(PLACEHOLDER) //TODO: swap with your phone number
+        val callee = PLACEHOLDER //TODO: swap with your phone number
         NexmoClient.get().call(callee, NexmoCallHandler.SERVER, callListener)
     }
 
@@ -61,8 +60,6 @@ class MainActivity : BaseActivity() {
         NexmoClient.get().removeIncomingCallListeners()
         super.onStop()
     }
-
-
 
 
     private fun setUiAccordingToEnabledFeatures() {
